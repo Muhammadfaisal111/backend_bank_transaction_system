@@ -9,9 +9,11 @@ const accountSchema = new mongoose.Schema(
       index: true,
     },
     status: {
+      type: String,
       enum: {
         values: ["active", "inactive", "frozen"],
         message: "Status must be either active, inactive or frozen",
+        default: "active",
       },
     },
     currency: {
@@ -23,7 +25,7 @@ const accountSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-accountSchema.index({ user: 1 }, { Schema: 1 });
+accountSchema.index({ user: 1 }, { status: 1 });
 
 const accountModel = mongoose.model("Account", accountSchema);
 module.exports = accountModel;
